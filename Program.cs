@@ -4,7 +4,8 @@
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the master branch for assignments --> Day 16 And 17");
+            Sorting sort = new Sorting();
+            sort.Display();
         }
     }
 }
