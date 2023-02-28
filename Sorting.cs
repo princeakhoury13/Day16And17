@@ -6,49 +6,71 @@ using System.Threading.Tasks;
 
 namespace Day16And17
 {
-    public class Sorting
+    public static class Sorting
     {
-        public void Display()
+        public static void MergeSort(int[] arr, int left, int right)
         {
-
-            int[] arr = { };
-            int size;
-            Console.WriteLine("Enter size of the array");
-            size = Convert.ToInt32(Console.ReadLine());
-            arr = new int[size];
-
-            for (int k = 0; k < size; k++)
+            if (left < right)
             {
-                int number = k + 1;
-                Console.WriteLine("Enter element number: " + number);
-                arr[k] = Convert.ToInt32(Console.ReadLine());
+                int mid = (left + right) / 2;
+
+                MergeSort(arr, left, mid);
+                MergeSort(arr, mid + 1, right);
+
+                Merge(arr, left, mid, right);
             }
+        }
 
-            Console.WriteLine("Given Array :");
-            foreach (int ele in arr)
-            {
-                Console.WriteLine(ele);
-            }
-            int temp;
+        public static void Merge(int[] arr, int left, int mid, int right)
+        {
+            int[] temp = new int[arr.Length];
 
-            for (int j = 0; j <= arr.Length - 2; j++)
+            int i = left;
+            int j = mid + 1;
+            int k = left;
+
+            while (i <= mid && j <= right)
             {
-                for (int i = 0; i <= arr.Length - j - 2; i++)
+                if (arr[i] < arr[j])
                 {
-                    if (arr[i] > arr[i + 1])
-                    {
-                        temp = arr[i + 1];
-                        arr[i + 1] = arr[i];
-                        arr[i] = temp;
-                    }
+                    temp[k] = arr[i];
+                    i++;
                 }
+                else
+                {
+                    temp[k] = arr[j];
+                    j++;
+                }
+                k++;
             }
 
-            Console.WriteLine("Sorted Array :");
-            foreach (int ele in arr)
+            while (i <= mid)
             {
-                Console.WriteLine(ele);
+                temp[k] = arr[i];
+                i++;
+                k++;
             }
+
+            while (j <= right)
+            {
+                temp[k] = arr[j];
+                j++;
+                k++;
+            }
+
+            for (int x = left; x <= right; x++)
+            {
+                arr[x] = temp[x];
+            }
+        }
+
+        public static void PrintArray(int[] arr)
+        {
+            foreach (int x in arr)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine();
         }
     }
 }
