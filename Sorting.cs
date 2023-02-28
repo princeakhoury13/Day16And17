@@ -6,71 +6,32 @@ using System.Threading.Tasks;
 
 namespace Day16And17
 {
-    public static class Sorting
+    public class Sorting
     {
-        public static void MergeSort(int[] arr, int left, int right)
+        public void Display()
         {
-            if (left < right)
+            Console.WriteLine("Enter First String");
+            string str1 = Console.ReadLine();
+            Console.WriteLine("Enter Second String");
+            string str2 = Console.ReadLine();
+
+            char[] ch1 = str1.ToLower().ToCharArray();
+            char[] ch2 = str2.ToLower().ToCharArray();
+
+            Array.Sort(ch1);
+            Array.Sort(ch2);
+
+            string val1 = new string(ch1);
+            string val2 = new string(ch2);
+
+            if (val1 == val2)
             {
-                int mid = (left + right) / 2;
-
-                MergeSort(arr, left, mid);
-                MergeSort(arr, mid + 1, right);
-
-                Merge(arr, left, mid, right);
+                Console.WriteLine("They are Anagrams!");
             }
-        }
-
-        public static void Merge(int[] arr, int left, int mid, int right)
-        {
-            int[] temp = new int[arr.Length];
-
-            int i = left;
-            int j = mid + 1;
-            int k = left;
-
-            while (i <= mid && j <= right)
+            else
             {
-                if (arr[i] < arr[j])
-                {
-                    temp[k] = arr[i];
-                    i++;
-                }
-                else
-                {
-                    temp[k] = arr[j];
-                    j++;
-                }
-                k++;
+                Console.WriteLine("Not Anagrams!");
             }
-
-            while (i <= mid)
-            {
-                temp[k] = arr[i];
-                i++;
-                k++;
-            }
-
-            while (j <= right)
-            {
-                temp[k] = arr[j];
-                j++;
-                k++;
-            }
-
-            for (int x = left; x <= right; x++)
-            {
-                arr[x] = temp[x];
-            }
-        }
-
-        public static void PrintArray(int[] arr)
-        {
-            foreach (int x in arr)
-            {
-                Console.Write(x + " ");
-            }
-            Console.WriteLine();
         }
     }
 }
